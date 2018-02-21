@@ -40,11 +40,11 @@ from PyQt5.QtCore import *
 import PyQt5.QtGui as QtGui
 from PyQt5.QtWidgets import (QVBoxLayout, QLabel, QGridLayout, QLineEdit)
 
-from electrum_ltc.plugins import BasePlugin, hook
-from electrum_ltc.paymentrequest import PaymentRequest
-from electrum_ltc.i18n import _
-from electrum_ltc_gui.qt.util import EnterButton, Buttons, CloseButton
-from electrum_ltc_gui.qt.util import OkButton, WindowModalDialog
+from electrum_nyc.plugins import BasePlugin, hook
+from electrum_nyc.paymentrequest import PaymentRequest
+from electrum_nyc.i18n import _
+from electrum_nyc_gui.qt.util import EnterButton, Buttons, CloseButton
+from electrum_nyc_gui.qt.util import OkButton, WindowModalDialog
 
 
 class Processor(threading.Thread):
@@ -94,7 +94,7 @@ class Processor(threading.Thread):
         part = MIMEBase('application', "litecoin-paymentrequest")
         part.set_payload(payment_request)
         encode_base64(part)
-        part.add_header('Content-Disposition', 'attachment; filename="payreq.ltc"')
+        part.add_header('Content-Disposition', 'attachment; filename="payreq.nyc"')
         msg.attach(part)
         s = smtplib.SMTP_SSL(self.imap_server, timeout=2)
         s.login(self.username, self.password)
@@ -143,7 +143,7 @@ class Plugin(BasePlugin):
         menu.addAction(_("Send via e-mail"), lambda: self.send(window, addr))
 
     def send(self, window, addr):
-        from electrum_ltc import paymentrequest
+        from electrum_nyc import paymentrequest
         r = window.wallet.receive_requests.get(addr)
         message = r.get('memo', '')
         if r.get('signature'):

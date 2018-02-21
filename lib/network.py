@@ -220,7 +220,7 @@ class Network(util.DaemonThread):
         self.connecting = set()
         self.requested_chunks = set()
         self.socket_queue = queue.Queue()
-        self.start_network(deserialize_server(self.default_server)[2],
+        self.start_network(deserialize_server(self.default_server)[0],
                            deserialize_proxy(self.config.get('proxy')))
 
     def register_callback(self, callback, events):

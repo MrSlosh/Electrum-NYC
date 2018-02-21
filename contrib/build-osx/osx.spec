@@ -5,9 +5,9 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules, coll
 import sys
 import os
 
-PACKAGE='Electrum-LTC'
-PYPKG='electrum_ltc'
-MAIN_SCRIPT='electrum-ltc'
+PACKAGE='Electrum-NYC'
+PYPKG='electrum_nyc'
+MAIN_SCRIPT='electrum-nyc'
 ICONS_FILE='electrum.icns'
 
 for i, x in enumerate(sys.argv):

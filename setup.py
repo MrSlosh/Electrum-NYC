@@ -34,40 +34,40 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
         else:
             usr_share = os.path.expanduser('~/.local/share')
     data_files += [
-        (os.path.join(usr_share, 'applications/'), ['electrum-ltc.desktop']),
+        (os.path.join(usr_share, 'applications/'), ['electrum-nyc.desktop']),
         (os.path.join(usr_share, 'pixmaps/'), ['icons/electrum-ltc.png'])
     ]
 
 setup(
-    name="Electrum-LTC",
+    name="Electrum-NYC",
     version=version.ELECTRUM_VERSION,
     install_requires=requirements,
     extras_require={
         'hardware': requirements_hw,
     },
     packages=[
-        'electrum_ltc',
-        'electrum_ltc_gui',
-        'electrum_ltc_gui.qt',
-        'electrum_ltc_plugins',
-        'electrum_ltc_plugins.audio_modem',
-        'electrum_ltc_plugins.cosigner_pool',
-        'electrum_ltc_plugins.email_requests',
-        'electrum_ltc_plugins.hw_wallet',
-        'electrum_ltc_plugins.keepkey',
-        'electrum_ltc_plugins.labels',
-        'electrum_ltc_plugins.ledger',
-        'electrum_ltc_plugins.trezor',
-        'electrum_ltc_plugins.digitalbitbox',
-        'electrum_ltc_plugins.virtualkeyboard',
+        'electrum_nyc',
+        'electrum_nyc_gui',
+        'electrum_nyc_gui.qt',
+        'electrum_nyc_plugins',
+        'electrum_nyc_plugins.audio_modem',
+        'electrum_nyc_plugins.cosigner_pool',
+        'electrum_nyc_plugins.email_requests',
+        'electrum_nyc_plugins.hw_wallet',
+        'electrum_nyc_plugins.keepkey',
+        'electrum_nyc_plugins.labels',
+        'electrum_nyc_plugins.ledger',
+        'electrum_nyc_plugins.trezor',
+        'electrum_nyc_plugins.digitalbitbox',
+        'electrum_nyc_plugins.virtualkeyboard',
     ],
     package_dir={
-        'electrum_ltc': 'lib',
-        'electrum_ltc_gui': 'gui',
-        'electrum_ltc_plugins': 'plugins',
+        'electrum_nyc': 'lib',
+        'electrum_nyc_gui': 'gui',
+        'electrum_nyc_plugins': 'plugins',
     },
     package_data={
-        'electrum_ltc': [
+        'electrum_nyc': [
             'servers.json',
             'servers_testnet.json',
             'currencies.json',
@@ -78,12 +78,12 @@ setup(
             'locale/*/LC_MESSAGES/electrum.mo',
         ]
     },
-    scripts=['electrum-ltc'],
+    scripts=['electrum-nyc'],
     data_files=data_files,
     description="Lightweight Litecoin Wallet",
     author="Thomas Voegtlin",
     author_email="thomasv@electrum.org",
     license="MIT Licence",
-    url="http://electrum-ltc.org",
+    url="http://electrum-nyc.org",
     long_description="""Lightweight Litecoin Wallet"""
 )

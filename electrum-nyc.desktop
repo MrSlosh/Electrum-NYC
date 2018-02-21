@@ -1,0 +1,17 @@
+# If you want electrum to appear in a linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install electrum.desktop
+
+[Desktop Entry]
+Comment=Lightweight NYcoin Client
+Exec=electrum-ntc %u
+GenericName[en_US]=NYcoin Wallet
+GenericName=NYcoin Wallet
+Icon=electrum-nyc
+Name[en_US]=Electrum NYcoin Wallet
+Name=Electrum NYcoin Wallet
+Categories=Finance;Network;
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/nycoin;
+

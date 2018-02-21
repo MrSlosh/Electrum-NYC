@@ -1,9 +1,9 @@
 from ..hw_wallet.qt import QtHandlerBase, QtPluginBase
 from .digitalbitbox import DigitalBitboxPlugin
 
-from electrum_ltc.i18n import _
-from electrum_ltc.plugins import hook
-from electrum_ltc.wallet import Standard_Wallet
+from electrum_nyc.i18n import _
+from electrum_nyc.plugins import hook
+from electrum_nyc.wallet import Standard_Wallet
 
 
 class Plugin(DigitalBitboxPlugin, QtPluginBase):

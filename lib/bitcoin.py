@@ -48,7 +48,7 @@ def read_json(filename, default):
 
 
 
-
+#nyc coinomi derivation path bip(32) M/44H/179H/0
 # Version numbers for BIP32 extended keys
 # standard: xprv, xpub
 # segwit in p2sh: yprv, ypub
@@ -74,11 +74,11 @@ class NetworkConstants:
     @classmethod
     def set_mainnet(cls):
         cls.TESTNET = False
-        cls.WIF_PREFIX = 0x80
-        cls.ADDRTYPE_P2PKH = 48
-        cls.ADDRTYPE_P2SH = 50
-        cls.SEGWIT_HRP = "ltc"
-        cls.GENESIS = "12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2"
+        cls.WIF_PREFIX = 0xBC
+        cls.ADDRTYPE_P2PKH = 50
+        cls.ADDRTYPE_P2SH = 22
+        cls.SEGWIT_HRP = "nyc"
+        cls.GENESIS = "5597f25c062a3038c7fd815fe46c67dedfcb3c839fbc8e01ed4044540d08fe48"
         cls.DEFAULT_PORTS = {'t': '50001', 's': '50002'}
         cls.DEFAULT_SERVERS = read_json('servers.json', {})
         cls.CHECKPOINTS = read_json('checkpoints.json', [])
@@ -89,8 +89,8 @@ class NetworkConstants:
         cls.WIF_PREFIX = 0xbf
         cls.ADDRTYPE_P2PKH = 111
         cls.ADDRTYPE_P2SH = 58
-        cls.SEGWIT_HRP = "tltc"
-        cls.GENESIS = "4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"
+        cls.SEGWIT_HRP = "tnyc"
+        cls.GENESIS = "24463e4d3c625b0a9059f309044c2cf0d7e196cf2a6ecce901f24f681be33c8f"
         cls.DEFAULT_PORTS = {'t':'51001', 's':'51002'}
         cls.DEFAULT_SERVERS = read_json('servers_testnet.json', {})
         cls.CHECKPOINTS = read_json('checkpoints_testnet.json', [])

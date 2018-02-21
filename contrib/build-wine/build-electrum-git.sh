@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_ROOT=electrum-ltc
+NAME_ROOT=electrum-nyc
 PYTHON_VERSION=3.5.4
 
 # These settings probably don't need any change
@@ -18,7 +18,7 @@ set -e
 
 cd tmp
 
-for repo in electrum-ltc electrum-ltc-locale electrum-ltc-icons; do
+for repo in electrum-nyc electrum-nyc-locale electrum-nyc-icons; do
     if [ -d $repo ]; then
 	cd $repo
 	git pull
@@ -30,7 +30,7 @@ for repo in electrum-ltc electrum-ltc-locale electrum-ltc-icons; do
     fi
 done
 
-pushd electrum-ltc-locale
+pushd electrum-nyc-locale
 for i in ./locale/*; do
     dir=$i/LC_MESSAGES
     mkdir -p $dir
@@ -38,7 +38,7 @@ for i in ./locale/*; do
 done
 popd
 
-pushd electrum-ltc
+pushd electrum-nyc
 if [ ! -z "$1" ]; then
     git checkout $1
 fi
@@ -48,17 +48,17 @@ echo "Last commit: $VERSION"
 find -exec touch -d '2000-11-11T11:11:11+00:00' {} +
 popd
 
-rm -rf $WINEPREFIX/drive_c/electrum-ltc
-cp -r electrum-ltc $WINEPREFIX/drive_c/electrum-ltc
-cp electrum-ltc/LICENCE .
-cp -r electrum-ltc-locale/locale $WINEPREFIX/drive_c/electrum-ltc/lib/
-cp electrum-ltc-icons/icons_rc.py $WINEPREFIX/drive_c/electrum-ltc/gui/qt/
+rm -rf $WINEPREFIX/drive_c/electrum-nyc
+cp -r electrum-nyc $WINEPREFIX/drive_c/electrum-nyc
+cp electrum-nyc/LICENCE .
+cp -r electrum-nyc-locale/locale $WINEPREFIX/drive_c/electrum-nyc/lib/
+cp electrum-nyc-icons/icons_rc.py $WINEPREFIX/drive_c/electrum-nyc/gui/qt/
 
 # Install frozen dependencies
 $PYTHON -m pip install -r ../../deterministic-build/requirements.txt
 $PYTHON -m pip install -r ../../deterministic-build/requirements-hw.txt
 
-pushd $WINEPREFIX/drive_c/electrum-ltc
+pushd $WINEPREFIX/drive_c/electrum-nyc
 $PYTHON setup.py install
 popd
 
@@ -79,7 +79,7 @@ popd
 wine "$WINEPREFIX/drive_c/Program Files (x86)/NSIS/makensis.exe" /DPRODUCT_VERSION=$VERSION electrum.nsi
 
 cd dist
-mv electrum-ltc-setup.exe $NAME_ROOT-$VERSION-setup.exe
+mv electrum-nyc-setup.exe $NAME_ROOT-$VERSION-setup.exe
 cd ..
 
 echo "Done."

@@ -1,10 +1,10 @@
 from PyQt5.QtGui import *
-from electrum_ltc.i18n import _
+from electrum_nyc.i18n import _
 
 
 import datetime
 from collections import defaultdict
-from electrum_ltc.bitcoin import COIN
+from electrum_nyc.bitcoin import COIN
 
 import matplotlib
 matplotlib.use('Qt5Agg')
@@ -35,7 +35,7 @@ def plot_history(wallet, history):
     plt.subplots_adjust(bottom=0.2)
     plt.xticks( rotation=25 )
     ax = plt.gca()
-    plt.ylabel('LTC')
+    plt.ylabel('NYC')
     plt.xlabel('Month')
     xfmt = md.DateFormatter('%Y-%m-%d')
     ax.xaxis.set_major_formatter(xfmt)

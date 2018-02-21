@@ -8,10 +8,10 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from electrum_ltc import Wallet, WalletStorage
-from electrum_ltc.util import UserCancelled, InvalidPassword
-from electrum_ltc.base_wizard import BaseWizard, HWD_SETUP_DECRYPT_WALLET
-from electrum_ltc.i18n import _
+from electrum_nyc import Wallet, WalletStorage
+from electrum_nyc.util import UserCancelled, InvalidPassword
+from electrum_nyc.base_wizard import BaseWizard, HWD_SETUP_DECRYPT_WALLET
+from electrum_nyc.i18n import _
 
 from .seed_dialog import SeedLayout, KeysLayout
 from .network_dialog import NetworkChoiceLayout
@@ -106,7 +106,7 @@ class InstallWizard(QDialog, MessageBoxMixin, BaseWizard):
     def __init__(self, config, app, plugins, storage):
         BaseWizard.__init__(self, config, storage)
         QDialog.__init__(self, None)
-        self.setWindowTitle('Electrum-LTC  -  ' + _('Install Wizard'))
+        self.setWindowTitle('Electrum-NYC  -  ' + _('Install Wizard'))
         self.app = app
         self.config = config
         # Set for base base class
@@ -178,7 +178,7 @@ class InstallWizard(QDialog, MessageBoxMixin, BaseWizard):
         hbox2.addWidget(self.pw_e)
         hbox2.addStretch()
         vbox.addLayout(hbox2)
-        self.set_layout(vbox, title=_('Electrum-LTC wallet'))
+        self.set_layout(vbox, title=_('Electrum-NYC wallet'))
 
         wallet_folder = os.path.dirname(self.storage.path)
 

@@ -39,21 +39,21 @@ import PyQt5.QtCore as QtCore
 from .exception_window import Exception_Hook
 from PyQt5.QtWidgets import *
 
-from electrum_ltc.util import bh2u, bfh
+from electrum_nyc.util import bh2u, bfh
 
-from electrum_ltc import keystore, simple_config
-from electrum_ltc.bitcoin import COIN, is_address, TYPE_ADDRESS, NetworkConstants
-from electrum_ltc.plugins import run_hook
-from electrum_ltc.i18n import _
-from electrum_ltc.util import (format_time, format_satoshis, PrintError,
+from electrum_nyc import keystore, simple_config
+from electrum_nyc.bitcoin import COIN, is_address, TYPE_ADDRESS, NetworkConstants
+from electrum_nyc.plugins import run_hook
+from electrum_nyc.i18n import _
+from electrum_nyc.util import (format_time, format_satoshis, PrintError,
                                format_satoshis_plain, NotEnoughFunds,
                                UserCancelled, NoDynamicFeeEstimates)
-from electrum_ltc import Transaction
-from electrum_ltc import util, bitcoin, commands, coinchooser
-from electrum_ltc import paymentrequest
-from electrum_ltc.wallet import Multisig_Wallet
+from electrum_nyc import Transaction
+from electrum_nyc import util, bitcoin, commands, coinchooser
+from electrum_nyc import paymentrequest
+from electrum_nyc.wallet import Multisig_Wallet
 try:
-    from electrum_ltc.plot import plot_history
+    from electrum_nyc.plot import plot_history
 except:
     plot_history = None
 
@@ -65,7 +65,7 @@ from .fee_slider import FeeSlider
 
 from .util import *
 
-from electrum_ltc.util import profiler
+from electrum_nyc.util import profiler
 
 class StatusBarButton(QPushButton):
     def __init__(self, icon, tooltip, func):
@@ -86,7 +86,7 @@ class StatusBarButton(QPushButton):
             self.func()
 
 
-from electrum_ltc.paymentrequest import PR_PAID
+from electrum_nyc.paymentrequest import PR_PAID
 
 
 class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
@@ -378,7 +378,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.setGeometry(100, 100, 840, 400)
 
     def watching_only_changed(self):
-        name = "Electrum-LTC Testnet" if NetworkConstants.TESTNET else "Electrum-LTC"
+        name = "Electrum-NYC Testnet" if NetworkConstants.TESTNET else "Electrum-NYC"
         title = '%s %s  -  %s' % (name, self.wallet.electrum_version,
                                         self.wallet.basename())
         extra = [self.wallet.storage.get('wallet_type', '?')]
@@ -531,7 +531,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         help_menu = menubar.addMenu(_("&Help"))
         help_menu.addAction(_("&About"), self.show_about)
-        help_menu.addAction(_("&Official website"), lambda: webbrowser.open("http://electrum-ltc.org"))
+        help_menu.addAction(_("&Official website"), lambda: webbrowser.open("http://electrum-nyc.org"))
         help_menu.addSeparator()
         help_menu.addAction(_("&Documentation"), lambda: webbrowser.open("http://docs.electrum.org/")).setShortcut(QKeySequence.HelpContents)
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
@@ -549,7 +549,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.show_error(_('No donation address for this server'))
 
     def show_about(self):
-        QMessageBox.about(self, "Electrum-LTC",
+        QMessageBox.about(self, "Electrum-NYC",
             _("Version")+" %s" % (self.wallet.electrum_version) + "\n\n" +
                 _("Electrum's focus is speed, with low resource usage and simplifying Litecoin. You do not need to perform regular backups, because your wallet can be recovered from a secret phrase that you can memorize or write on paper. Startup times are instant because it operates in conjunction with high-performance servers that handle the most complicated parts of the Litecoin system."  + "\n\n" +
                 _("Uses icons from the Icons8 icon pack (icons8.com).")))
@@ -557,11 +557,11 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def show_report_bug(self):
         msg = ' '.join([
             _("Please report any bugs as issues on github:<br/>"),
-            "<a href=\"https://github.com/pooler/electrum-ltc/issues\">https://github.com/pooler/electrum-ltc/issues</a><br/><br/>",
+            "<a href=\"https://github.com/pooler/electrum-nyc/issues\">https://github.com/pooler/electrum-nyc/issues</a><br/><br/>",
             _("Before reporting a bug, upgrade to the most recent version of Electrum (latest release or git HEAD), and include the version number in your report."),
             _("Try to explain not only what the bug is, but how it occurs.")
          ])
-        self.show_message(msg, title="Electrum-LTC - " + _("Reporting Bugs"))
+        self.show_message(msg, title="Electrum-NYC - " + _("Reporting Bugs"))
 
     def notify_transactions(self):
         if not self.network or not self.network.is_connected():
@@ -591,9 +591,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         if self.tray:
             try:
                 # this requires Qt 5.9
-                self.tray.showMessage("Electrum-LTC", message, QIcon(":icons/electrum_dark_icon"), 20000)
+                self.tray.showMessage("Electrum-NYC", message, QIcon(":icons/electrum_dark_icon"), 20000)
             except TypeError:
-                self.tray.showMessage("Electrum-LTC", message, QSystemTrayIcon.Information, 20000)
+                self.tray.showMessage("Electrum-NYC", message, QSystemTrayIcon.Information, 20000)
 
 
 
@@ -650,9 +650,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         if self.decimal_point == 2:
             return 'bits'
         if self.decimal_point == 5:
-            return 'mLTC'
+            return 'mNYC'
         if self.decimal_point == 8:
-            return 'LTC'
+            return 'NYC'
         raise Exception('Unknown base unit')
 
     def connect_fields(self, window, btc_e, fiat_e, fee_e):
@@ -1930,7 +1930,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.send_button.setVisible(not self.wallet.is_watching_only())
 
     def change_password_dialog(self):
-        from electrum_ltc.storage import STO_EV_XPUB_PW
+        from electrum_nyc.storage import STO_EV_XPUB_PW
         if self.wallet.get_available_storage_encryption_version() == STO_EV_XPUB_PW:
             from .password_dialog import ChangePasswordDialogForHW
             d = ChangePasswordDialogForHW(self, self.wallet)
@@ -2256,7 +2256,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         return d.run()
 
     def tx_from_text(self, txt):
-        from electrum_ltc.transaction import tx_from_str
+        from electrum_nyc.transaction import tx_from_str
         try:
             tx = tx_from_str(txt)
             return Transaction(tx)
@@ -2265,7 +2265,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             return
 
     def read_tx_from_qrcode(self):
-        from electrum_ltc import qrscanner
+        from electrum_nyc import qrscanner
         try:
             data = qrscanner.scan_barcode(self.config.get_video_device())
         except BaseException as e:
@@ -2297,7 +2297,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         return self.tx_from_text(file_content)
 
     def do_process_from_text(self):
-        from electrum_ltc.transaction import SerializationError
+        from electrum_nyc.transaction import SerializationError
         text = text_dialog(self, _('Input raw transaction'), _("Transaction:"), _("Load transaction"))
         if not text:
             return
@@ -2309,7 +2309,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.show_critical(_("Electrum was unable to deserialize the transaction:") + "\n" + str(e))
 
     def do_process_from_file(self):
-        from electrum_ltc.transaction import SerializationError
+        from electrum_nyc.transaction import SerializationError
         try:
             tx = self.read_tx_from_file()
             if tx:
@@ -2318,7 +2318,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.show_critical(_("Electrum was unable to deserialize the transaction:") + "\n" + str(e))
 
     def do_process_from_txid(self):
-        from electrum_ltc import transaction
+        from electrum_nyc import transaction
         txid, ok = QInputDialog.getText(self, _('Lookup transaction'), _('Transaction ID') + ':')
         if ok and txid:
             txid = str(txid).strip()
@@ -2353,7 +2353,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         e.setReadOnly(True)
         vbox.addWidget(e)
 
-        defaultname = 'electrum-ltc-private-keys.csv'
+        defaultname = 'electrum-nyc-private-keys.csv'
         select_msg = _('Select file to export your private keys to')
         hbox, filename_e, csv_button = filename_field(self, self.config, defaultname, select_msg)
         vbox.addLayout(hbox)
@@ -2450,7 +2450,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def do_export_labels(self):
         labels = self.wallet.labels
         try:
-            fileName = self.getSaveFileName(_("Select file to save your labels"), 'electrum-ltc_labels.json', "*.json")
+            fileName = self.getSaveFileName(_("Select file to save your labels"), 'electrum-nyc_labels.json', "*.json")
             if fileName:
                 with open(fileName, 'w+') as f:
                     json.dump(labels, f, indent=4, sort_keys=True)
@@ -2462,7 +2462,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         d = WindowModalDialog(self, _('Export History'))
         d.setMinimumSize(400, 200)
         vbox = QVBoxLayout(d)
-        defaultname = os.path.expanduser('~/electrum-ltc-history.csv')
+        defaultname = os.path.expanduser('~/electrum-nyc-history.csv')
         select_msg = _('Select file to export your wallet transactions to')
         hbox, filename_e, csv_button = filename_field(self, self.config, defaultname, select_msg)
         vbox.addLayout(hbox)
@@ -2553,7 +2553,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         address_e.textChanged.connect(on_address)
         if not d.exec_():
             return
-        from electrum_ltc.wallet import sweep_preparations
+        from electrum_nyc.wallet import sweep_preparations
         try:
             self.do_clear()
             coins, keypairs = sweep_preparations(get_pk(), self.network)
@@ -2626,7 +2626,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         lang_help = _('Select which language is used in the GUI (after restart).')
         lang_label = HelpLabel(_('Language') + ':', lang_help)
         lang_combo = QComboBox()
-        from electrum_ltc.i18n import languages
+        from electrum_nyc.i18n import languages
         lang_combo.addItems(list(languages.values()))
         try:
             index = languages.keys().index(self.config.get("language",''))
@@ -2755,9 +2755,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         SSL_id_e.setReadOnly(True)
         id_widgets.append((SSL_id_label, SSL_id_e))
 
-        units = ['LTC', 'mLTC', 'bits']
+        units = ['NYC', 'mNYC', 'bits']
         msg = _('Base unit of your wallet.')\
-              + '\n1LTC=1000mLTC.\n' \
+              + '\n1NYC=1000mNYC.\n' \
               + _(' These settings affects the fields in the Send tab')+' '
         unit_label = HelpLabel(_('Base unit') + ':', msg)
         unit_combo = QComboBox()
@@ -2769,9 +2769,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
                 return
             edits = self.amount_e, self.fee_e, self.receive_amount_e
             amounts = [edit.get_amount() for edit in edits]
-            if unit_result == 'LTC':
+            if unit_result == 'NYC':
                 self.decimal_point = 8
-            elif unit_result == 'mLTC':
+            elif unit_result == 'mNYC':
                 self.decimal_point = 5
             elif unit_result == 'bits':
                 self.decimal_point = 2
@@ -2800,7 +2800,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         block_ex_combo.currentIndexChanged.connect(on_be)
         gui_widgets.append((block_ex_label, block_ex_combo))
 
-        from electrum_ltc import qrscanner
+        from electrum_nyc import qrscanner
         system_cameras = qrscanner._find_system_cameras()
         qr_combo = QComboBox()
         qr_combo.addItem("Default","default")

@@ -17,15 +17,15 @@ from kivy.lang import Builder
 from kivy.factory import Factory
 from kivy.utils import platform
 
-from electrum_ltc.util import profiler, parse_URI, format_time, InvalidPassword, NotEnoughFunds
-from electrum_ltc import bitcoin
-from electrum_ltc.util import timestamp_to_datetime
-from electrum_ltc.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
+from electrum_nyc.util import profiler, parse_URI, format_time, InvalidPassword, NotEnoughFunds
+from electrum_nyc import bitcoin
+from electrum_nyc.util import timestamp_to_datetime
+from electrum_nyc.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
 
 from .context_menu import ContextMenu
 
 
-from electrum_ltc_gui.kivy.i18n import _
+from electrum_nyc_gui.kivy.i18n import _
 
 class EmptyLabel(Factory.Label):
     pass
@@ -177,7 +177,7 @@ class SendScreen(CScreen):
     payment_request = None
 
     def set_URI(self, text):
-        import electrum_ltc as electrum
+        import electrum_nyc as electrum
         try:
             uri = electrum.util.parse_URI(text, self.app.on_pr)
         except:
@@ -219,7 +219,7 @@ class SendScreen(CScreen):
             # it sould be already saved
             return
         # save address as invoice
-        from electrum_ltc.paymentrequest import make_unsigned_request, PaymentRequest
+        from electrum_nyc.paymentrequest import make_unsigned_request, PaymentRequest
         req = {'address':self.screen.address, 'memo':self.screen.message}
         amount = self.app.get_amount(self.screen.amount) if self.screen.amount else 0
         req['amount'] = amount
@@ -355,7 +355,7 @@ class ReceiveScreen(CScreen):
         Clock.schedule_once(lambda dt: self.update_qr())
 
     def get_URI(self):
-        from electrum_ltc.util import create_URI
+        from electrum_nyc.util import create_URI
         amount = self.screen.amount
         if amount:
             a, u = self.screen.amount.split()

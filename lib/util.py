@@ -40,7 +40,7 @@ def inv_dict(d):
     return {v: k for k, v in d.items()}
 
 
-base_units = {'LTC':8, 'mLTC':5, 'uLTC':2}
+base_units = {'NYC':8, 'mNYC':5, 'uNYC':2}
 fee_levels = [_('Within 25 blocks'), _('Within 10 blocks'), _('Within 5 blocks'), _('Within 2 blocks'), _('In the next block')]
 
 def normalize_version(v):
@@ -250,7 +250,7 @@ def android_data_dir():
     return PythonActivity.mActivity.getFilesDir().getPath() + '/data'
 
 def android_headers_dir():
-    d = android_ext_dir() + '/org.electrum_ltc.electrum_ltc'
+    d = android_ext_dir() + '/org.electrum_nyc.electrum_nyc'
     if not os.path.exists(d):
         os.mkdir(d)
     return d
@@ -259,7 +259,7 @@ def android_check_data_dir():
     """ if needed, move old directory to sandbox """
     ext_dir = android_ext_dir()
     data_dir = android_data_dir()
-    old_electrum_dir = ext_dir + '/electrum-ltc'
+    old_electrum_dir = ext_dir + '/electrum-nyc'
     if not os.path.exists(data_dir) and os.path.exists(old_electrum_dir):
         import shutil
         new_headers_path = android_headers_dir() + '/blockchain_headers'
@@ -340,11 +340,11 @@ def user_dir():
     if 'ANDROID_DATA' in os.environ:
         return android_check_data_dir()
     elif os.name == 'posix':
-        return os.path.join(os.environ["HOME"], ".electrum-ltc")
+        return os.path.join(os.environ["HOME"], ".electrum-nyc")
     elif "APPDATA" in os.environ:
-        return os.path.join(os.environ["APPDATA"], "Electrum-LTC")
+        return os.path.join(os.environ["APPDATA"], "Electrum-NYC")
     elif "LOCALAPPDATA" in os.environ:
-        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-LTC")
+        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-NYC")
     else:
         #raise Exception("No home directory found in environment variables.")
         return
@@ -446,19 +446,19 @@ def time_difference(distance_in_time, include_seconds):
 mainnet_block_explorers = {
     'explorer.litecoin.net': ('http://explorer.litecoin.net/',
                         {'tx': 'tx/', 'addr': 'address/'}),
-    'Blockr.io': ('https://ltc.blockr.io/',
+    'Blockr.io': ('https://nyc.blockr.io/',
                         {'tx': 'tx/info/', 'addr': 'address/info/'}),
-    'BlockCypher.com': ('https://live.blockcypher.com/ltc/',
+    'BlockCypher.com': ('https://live.blockcypher.com/nyc/',
                         {'tx': 'tx/', 'addr': 'address/'}),
     'SoChain': ('https://chain.so/',
-                        {'tx': 'tx/LTC/', 'addr': 'address/LTC/'}),
+                        {'tx': 'tx/NYC/', 'addr': 'address/NYC/'}),
     'system default': ('blockchain://12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2/',
                         {'tx': 'tx/', 'addr': 'address/'}),
 }
 
 testnet_block_explorers = {
     'SoChain': ('https://chain.so/',
-                        {'tx': 'tx/LTCTEST/', 'addr': 'address/LTCTEST/'}),
+                        {'tx': 'tx/NYCTEST/', 'addr': 'address/NYCTEST/'}),
     'LiteCore': ('https://testnet.litecore.io/',
                         {'tx': 'tx/', 'addr': 'address/'}),
     'system default': ('blockchain://4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0/',

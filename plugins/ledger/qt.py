@@ -2,12 +2,12 @@ import threading
 
 from PyQt5.Qt import QInputDialog, QLineEdit, QVBoxLayout, QLabel
 
-from electrum_ltc.i18n import _
-from electrum_ltc.plugins import hook
-from electrum_ltc.wallet import Standard_Wallet
+from electrum_nyc.i18n import _
+from electrum_nyc.plugins import hook
+from electrum_nyc.wallet import Standard_Wallet
 from .ledger import LedgerPlugin
 from ..hw_wallet.qt import QtHandlerBase, QtPluginBase
-from electrum_ltc_gui.qt.util import *
+from electrum_nyc_gui.qt.util import *
 
 #from btchip.btchipPersoWizard import StartBTChipPersoDialog
 

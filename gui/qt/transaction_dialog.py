@@ -30,12 +30,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from electrum_ltc.bitcoin import base_encode
-from electrum_ltc.i18n import _
-from electrum_ltc.plugins import run_hook
+from electrum_nyc.bitcoin import base_encode
+from electrum_nyc.i18n import _
+from electrum_nyc.plugins import run_hook
 
-from electrum_ltc.util import bfh
-from electrum_ltc.wallet import UnrelatedTransactionException
+from electrum_nyc.util import bfh
+from electrum_nyc.wallet import UnrelatedTransactionException
 
 from .util import *
 
