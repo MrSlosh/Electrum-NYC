@@ -74,8 +74,8 @@ class NetworkConstants:
     @classmethod
     def set_mainnet(cls):
         cls.TESTNET = False
-        cls.WIF_PREFIX = 0xBC
-        cls.ADDRTYPE_P2PKH = 50
+        cls.WIF_PREFIX = 0xbc
+        cls.ADDRTYPE_P2PKH = 60
         cls.ADDRTYPE_P2SH = 22
         cls.SEGWIT_HRP = "nyc"
         cls.GENESIS = "5597f25c062a3038c7fd815fe46c67dedfcb3c839fbc8e01ed4044540d08fe48"
@@ -86,9 +86,9 @@ class NetworkConstants:
     @classmethod
     def set_testnet(cls):
         cls.TESTNET = True
-        cls.WIF_PREFIX = 0xbf
-        cls.ADDRTYPE_P2PKH = 111
-        cls.ADDRTYPE_P2SH = 58
+        cls.WIF_PREFIX = 0xf1
+        cls.ADDRTYPE_P2PKH = 113
+        cls.ADDRTYPE_P2SH = 196
         cls.SEGWIT_HRP = "tnyc"
         cls.GENESIS = "24463e4d3c625b0a9059f309044c2cf0d7e196cf2a6ecce901f24f681be33c8f"
         cls.DEFAULT_PORTS = {'t':'51001', 's':'51002'}
@@ -104,7 +104,7 @@ FEE_STEP = 100000
 MAX_FEE_RATE = 1000000
 
 
-COINBASE_MATURITY = 100
+COINBASE_MATURITY = 20
 COIN = 100000000
 
 # supported types of transction outputs
@@ -207,8 +207,10 @@ def rev_hex(s):
 
 def int_to_hex(i, length=1):
     assert isinstance(i, int)
+    
     s = hex(i)[2:].rstrip('L')
     s = "0"*(2*length - len(s)) + s
+    
     return rev_hex(s)
 
 
